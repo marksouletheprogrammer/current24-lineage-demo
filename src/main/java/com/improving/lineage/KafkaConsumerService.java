@@ -7,6 +7,9 @@ import org.springframework.stereotype.Service;
 @Service
 public class KafkaConsumerService {
 
+    @Autowired
+    LineageService lineageService;
+
     @KafkaListener(topics = "input_topic", groupId = "your-consumer-group")
     public void consume(String message) {
         System.out.println("Consumed message: " + message);
@@ -14,6 +17,8 @@ public class KafkaConsumerService {
         String processedMessage = processMessage(message);
         // Produce the processed message to another topic
         produce(processedMessage);
+        lineageService.reportLineage();
+
     }
 
     private String processMessage(String message) {
