@@ -25,7 +25,7 @@ public class OpenLineageConfig {
         Properties producerProps = new Properties();
         producerProps.putAll(producerFactory.getConfigurationProperties());
         HttpConfig httpConfig = new HttpConfig();
-        httpConfig.setUrl(URI.create("http://localhost:5000"));
+        httpConfig.setUrl(URI.create("http://marquez-api:5000"));
         return OpenLineageClient.builder()
                 .transport(
                         new HttpTransport(httpConfig)
