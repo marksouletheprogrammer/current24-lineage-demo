@@ -2,8 +2,8 @@ package com.improving.lineage;
 
 import io.openlineage.client.OpenLineage;
 import io.openlineage.client.OpenLineageClient;
-import io.openlineage.client.transports.KafkaConfig;
-import io.openlineage.client.transports.KafkaTransport;
+import io.openlineage.client.transports.HttpConfig;
+import io.openlineage.client.transports.HttpTransport;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.kafka.core.ProducerFactory;
@@ -23,15 +23,11 @@ public class OpenLineageConfig {
     public OpenLineageClient openLineageClient(ProducerFactory<String, String> producerFactory) {
         Properties producerProps = new Properties();
         producerProps.putAll(producerFactory.getConfigurationProperties());
+        HttpConfig httpConfig = new HttpConfig();
+        httpConfig.setUrl(URI.create("http://localhost:5000"));
         return OpenLineageClient.builder()
                 .transport(
-                        new KafkaTransport(
-                                new KafkaConfig(
-                                        "lineage",
-                                        "predict-enrich-lineage",
-                                        producerProps
-                                )
-                        )
+                        new HttpTransport(httpConfig)
                 ).build();
     }
 }

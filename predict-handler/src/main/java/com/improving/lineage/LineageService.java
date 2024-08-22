@@ -22,28 +22,29 @@ public class LineageService {
         // Create job information
         OpenLineage.Job job = openLineage.newJobBuilder()
                 .namespace("animals")
-                .name("dino_job")
+                .name("dino_job2")
                 .build();
 
         // Create job run information
         OpenLineage.Run run = openLineage.newRunBuilder()
-                .runId(UUID.randomUUID())
+                .runId(UUID.fromString("c9b9aa64-9b03-46d0-8683-7789d77d5ea2"))
                 .build();
 
         // Create input dataset information
         OpenLineage.InputDataset inputDataset = openLineage.newInputDatasetBuilder()
                 .namespace("animals")
-                .name("dino_input_dataset")
+                .name("hamster_dataset")
                 .build();
 
         // Create output dataset information
         OpenLineage.OutputDataset outputDataset = openLineage.newOutputDatasetBuilder()
                 .namespace("animals")
-                .name("dino_output_dataset")
+                .name("dino_dataset")
                 .build();
 
         // Create event
         OpenLineage.RunEvent runEvent = openLineage.newRunEventBuilder()
+                .eventType(OpenLineage.RunEvent.EventType.COMPLETE)
                 .eventTime(ZonedDateTime.now())
                 .run(run)
                 .job(job)
