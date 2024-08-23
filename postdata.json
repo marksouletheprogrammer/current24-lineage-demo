@@ -1,1 +1,12 @@
-{"field1": "waffles", "field2": 42}
+{"city": "Minneapolis", "state": "Minnesota"}
+{"city": "Austin", "state": "Texas"}
+{"city": "New York", "state": "New York"}
+{"city": "Chicago", "state": "Illnois"}
+{"city": "St. Louis", "state": "Missouri"}
+{"city": "Omaha", "state": "Nebraska"}
+{"city": "Los Angeles", "state": "California"}
+{"city": "Miami", "state": "Florida"}
+{"city": "St. Paul", "state": "Minnesota"}
+{"city": "San Francisco", "state": "California"}
+{"city": "Houston", "state": "Texas"}
+{"city": "Arlen", "state": "Texas"}

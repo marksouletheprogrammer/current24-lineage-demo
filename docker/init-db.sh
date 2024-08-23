@@ -13,15 +13,21 @@ psql -v ON_ERROR_STOP=1 --username "${POSTGRES_USER}" > /dev/null <<-EOSQL
   CREATE DATABASE ${MARQUEZ_DB};
   GRANT ALL PRIVILEGES ON DATABASE ${MARQUEZ_DB} TO ${MARQUEZ_USER};
 
-  CREATE USER ${DATA_USER};
-  ALTER USER ${DATA_USER} WITH PASSWORD '${DATA_PASSWORD}';
-  CREATE DATABASE ${DATA_DB};
-  GRANT ALL PRIVILEGES ON DATABASE ${DATA_DB} TO ${DATA_USER};
+  CREATE USER ${WEATHER_USER};
+  ALTER USER ${WEATHER_USER} WITH PASSWORD '${WEATHER_PASSWORD}';
+  CREATE DATABASE ${WEATHER_DB};
+  GRANT ALL PRIVILEGES ON DATABASE ${WEATHER_DB} TO ${WEATHER_USER};
 EOSQL
 
-psql -v ON_ERROR_STOP=1 --username "${DATA_USER}" > /dev/null <<-EOSQL
-  \c ${DATA_DB};
-  CREATE TABLE IF NOT EXISTS sink_event(id varchar(255), version bigint, counter bigint);
+psql -v ON_ERROR_STOP=1 -U ${WEATHER_USER} -d ${WEATHER_DB} > /dev/null <<-EOSQL
+  CREATE TABLE IF NOT EXISTS weather_prediction(
+      id SERIAL PRIMARY KEY, 
+      city VARCHAR(255), 
+      state VARCHAR(255),
+      current_temp INT,
+      predict_low INT,
+      predict_high INT
+  );
 EOSQL
 
-echo "DATA_DB created"
+echo "WEATHER_DB created"

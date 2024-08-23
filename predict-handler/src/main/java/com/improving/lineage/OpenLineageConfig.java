@@ -1,5 +1,6 @@
 package com.improving.lineage;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import io.openlineage.client.OpenLineage;
 import io.openlineage.client.OpenLineageClient;
 import io.openlineage.client.transports.HttpConfig;
@@ -30,5 +31,10 @@ public class OpenLineageConfig {
                 .transport(
                         new HttpTransport(httpConfig)
                 ).build();
+    }
+
+    @Bean
+    public ObjectMapper objectMapper() {
+        return new ObjectMapper();
     }
 }

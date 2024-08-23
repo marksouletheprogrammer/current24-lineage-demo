@@ -95,9 +95,9 @@ services:
       MARQUEZ_DB: marquez
       MARQUEZ_USER: marquez
       MARQUEZ_PASSWORD: marquez
-      DATA_DB: data
-      DATA_USER: data
-      DATA_PASSWORD: data
+      WEATHER_DB: weather_prediction
+      WEATHER_USER: weather
+      WEATHER_PASSWORD: weather
     volumes:
       - ./docker/init-db.sh:/docker-entrypoint-initdb.d/init-db.sh
 
