@@ -31,6 +31,26 @@ If you want to interact with the demo while running you will need:
 If you want to modify/build the projects locally you will need:
 - Java 21
 
+## Running demo
+
+Everything is self contained in docker-compose. Start the project.
+```
+docker-compose up -d
+```
+
+Produce data to populate Lineage grph.
+```
+kafka-producer-perf-test --topic com.weather.source --num-records 20 --payload-file postdata.json --throughput 1 --producer-props bootstrap.servers=localhost:9094 key.serializer=org.apache.kafka.common.serialization.StringSerializer value.serializer=org.apache.kafka.common.serialization.StringSerializer
+```
+
+Navigate to `localhost:3000` to see the Lineage graph.
+
+Connect to database to see the data produced by this system (password=weather).
+```
+psql -h localhost -d weather_prediction -U weather -p 5432
+```
+
+
 ## The code
 
 The code is really simple and verbose. It demonsrates the concepts for academic purposes. 
