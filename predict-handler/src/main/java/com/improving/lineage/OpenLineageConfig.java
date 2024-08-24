@@ -18,7 +18,7 @@ public class OpenLineageConfig {
 
     @Bean
     public OpenLineage openLineage() {
-        return new OpenLineage(URI.create("ferret_producer"));
+        return new OpenLineage(URI.create("predict_handler_producer"));
     }
 
     @Bean

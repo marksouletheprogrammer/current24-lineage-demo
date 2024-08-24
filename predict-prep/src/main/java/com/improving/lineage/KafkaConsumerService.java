@@ -2,11 +2,13 @@ package com.improving.lineage;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Service;
 
 import java.util.Random;
+import java.util.UUID;
 
 @Service
 public class KafkaConsumerService {
@@ -18,13 +20,14 @@ public class KafkaConsumerService {
     ObjectMapper objectMapper;
 
     @KafkaListener(topics = "com.weather.source")
-    public void consume(String message) {
-        System.out.println("Consumed message: " + message);
+    public void consume(ConsumerRecord<String, String> record) {
+        System.out.println("Consumed message: " + record.value());
         // Process the message
-        String processedMessage = processMessage(message);
+        var traceId = UUID.randomUUID();
+        String processedMessage = processMessage(record.value());
         // Produce the processed message to another topic
-        produce(processedMessage);
-        lineageService.reportLineage();
+        produce(processedMessage, traceId);
+        lineageService.reportLineage(traceId, record.partition(), record.offset());
 
     }
 
@@ -43,8 +46,8 @@ public class KafkaConsumerService {
     @Autowired
     private KafkaProducerService producerService;
 
-    public void produce(String message) {
-        producerService.sendMessage("com.weather.predict", message);
+    public void produce(String message, UUID traceId) {
+        producerService.sendMessage("com.weather.predict", message, traceId);
     }
 }
 
