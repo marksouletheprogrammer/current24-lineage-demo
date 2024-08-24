@@ -70,12 +70,12 @@ public class LineageService {
                 .build();
 
         var outputFields = List.of(
-                openLineage.newSchemaDatasetFacetFields("id", "int", null, null),
-                openLineage.newSchemaDatasetFacetFields("city", "String", null, null),
-                openLineage.newSchemaDatasetFacetFields("state", "String", null, null),
-                openLineage.newSchemaDatasetFacetFields("currentTemp", "int", null, null),
-                openLineage.newSchemaDatasetFacetFields("predictLow", "int", null, null),
-                openLineage.newSchemaDatasetFacetFields("predictHigh", "int", null, null)
+                openLineage.newSchemaDatasetFacetFields("id", "SERIAL", null, null),
+                openLineage.newSchemaDatasetFacetFields("city", "VARCHAR(255)", null, null),
+                openLineage.newSchemaDatasetFacetFields("state", "VARCHAR(255)", null, null),
+                openLineage.newSchemaDatasetFacetFields("currentTemp", "INT", null, null),
+                openLineage.newSchemaDatasetFacetFields("predictLow", "INT", null, null),
+                openLineage.newSchemaDatasetFacetFields("predictHigh", "INT", null, null)
         );
         // Create output dataset information.
         OpenLineage.OutputDataset outputDataset = openLineage.newOutputDatasetBuilder()
