@@ -1,0 +1,37 @@
+# Effective Data Lineage Strategies for Real-Time Systems Demo Project
+
+This project was built as a demo to demonstrate real-time Lineage. It's a toy application using OpenLineage and Marquez. 
+
+## Project Structure
+
+This is the structure of this project:
+
+![Demo diagram](demo.png)
+
+There are 3 sub-projects:
+- predict-prep
+- predict-enrich
+- predict-handler
+
+These are relatively simple Java/Spring Boot/Kafka projects instrumented with OpenLineage.
+
+They will send lineage information to Marquez.
+
+Application data is fed into predict-prep, transformed by predict-enrich, and then stored in Postgres by predict-handler. They communicate to eachother via Kafka.
+
+## Prerequisites
+
+Only Docker is needed to run the demo. The docker-compose file will build and containerize the Java projects. All other dependencies are pulled.
+
+If you want to interact with the demo while running you will need:
+- psql
+- kafka cli
+- web browser
+
+If you want to modify/build the projects locally you will need:
+- Java 21
+
+## The code
+
+The code is really simple and verbose. It demonsrates the concepts for academic purposes. 
+  
