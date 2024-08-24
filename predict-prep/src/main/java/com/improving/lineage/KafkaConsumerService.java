@@ -19,7 +19,13 @@ public class KafkaConsumerService {
     @Autowired
     ObjectMapper objectMapper;
 
-    @KafkaListener(topics = "com.weather.source")
+    @Autowired
+    ApplicationConfig config;
+
+    @Autowired
+    private KafkaProducerService producerService;
+
+    @KafkaListener(topics = "${app.input-topic}")
     public void consume(ConsumerRecord<String, String> record) {
         System.out.println("Consumed message: " + record.value());
         // Process the message
@@ -43,11 +49,8 @@ public class KafkaConsumerService {
         }
     }
 
-    @Autowired
-    private KafkaProducerService producerService;
-
     public void produce(String message, UUID traceId) {
-        producerService.sendMessage("com.weather.predict", message, traceId);
+        producerService.sendMessage(config.getOutputTopic(), message, traceId);
     }
 }
 

@@ -21,9 +21,15 @@ public class KafkaConsumerService {
     @Autowired
     ObjectMapper objectMapper;
 
+    @Autowired
+    ApplicationConfig config;
+
+    @Autowired
+    private KafkaProducerService producerService;
+
     private final static String TRACE_ID = "traceId";
 
-    @KafkaListener(topics = "com.weather.predict")
+    @KafkaListener(topics = "${app.input-topic}")
     public void consume(ConsumerRecord<String, String> record) {
         System.out.println("Consumed message: " + record.value());
         // Process the message
@@ -67,11 +73,9 @@ public class KafkaConsumerService {
     public int celsiusToKelvin(int celsius) {
         return celsius + 273;
     }
-    @Autowired
-    private KafkaProducerService producerService;
 
     public void produce(String message, UUID traceId) {
-        producerService.sendMessage("com.weather.enriched", message, traceId);
+        producerService.sendMessage(config.getOutputTopic(), message, traceId);
     }
 }
 

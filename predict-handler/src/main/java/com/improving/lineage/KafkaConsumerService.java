@@ -23,9 +23,12 @@ public class KafkaConsumerService {
     @Autowired
     PredictionRepository repository;
 
+    @Autowired
+    ApplicationConfig config;
+
     private final static String TRACE_ID = "traceId";
 
-    @KafkaListener(topics = "com.weather.enriched")
+    @KafkaListener(topics = "${app.input-topic}")
     public void consume(ConsumerRecord<String, String> record) {
         System.out.println("Consumed message: " + record.value());
         // Process the message
