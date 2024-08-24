@@ -73,9 +73,9 @@ public class LineageService {
                 openLineage.newSchemaDatasetFacetFields("id", "SERIAL", null, null),
                 openLineage.newSchemaDatasetFacetFields("city", "VARCHAR(255)", null, null),
                 openLineage.newSchemaDatasetFacetFields("state", "VARCHAR(255)", null, null),
-                openLineage.newSchemaDatasetFacetFields("currentTemp", "INT", null, null),
-                openLineage.newSchemaDatasetFacetFields("predictLow", "INT", null, null),
-                openLineage.newSchemaDatasetFacetFields("predictHigh", "INT", null, null)
+                openLineage.newSchemaDatasetFacetFields("current_temp", "INT", null, null),
+                openLineage.newSchemaDatasetFacetFields("predict_low", "INT", null, null),
+                openLineage.newSchemaDatasetFacetFields("predict_high", "INT", null, null)
         );
         // Create output dataset information.
         OpenLineage.OutputDataset outputDataset = openLineage.newOutputDatasetBuilder()
@@ -87,6 +87,66 @@ public class LineageService {
                                 .build())
                         .columnLineage(openLineage.newColumnLineageDatasetFacetBuilder()
                                 .fields(openLineage.newColumnLineageDatasetFacetFieldsBuilder()
+                                        .put("city", openLineage.newColumnLineageDatasetFacetFieldsAdditionalBuilder()
+                                                .inputFields(List.of(openLineage.newColumnLineageDatasetFacetFieldsAdditionalInputFieldsBuilder()
+                                                        .namespace(NAMESPACE)
+                                                        .name("city")
+                                                        .transformations(List.of(
+                                                                openLineage.newColumnLineageDatasetFacetFieldsAdditionalInputFieldsTransformationsBuilder()
+                                                                        .type("DIRECT")
+                                                                        .subtype("IDENTITY")
+                                                                        .build()
+                                                                ))
+                                                        .build()))
+                                                .build())
+                                        .put("state", openLineage.newColumnLineageDatasetFacetFieldsAdditionalBuilder()
+                                                .inputFields(List.of(openLineage.newColumnLineageDatasetFacetFieldsAdditionalInputFieldsBuilder()
+                                                        .namespace(NAMESPACE)
+                                                        .name("state")
+                                                        .transformations(List.of(
+                                                                openLineage.newColumnLineageDatasetFacetFieldsAdditionalInputFieldsTransformationsBuilder()
+                                                                        .type("DIRECT")
+                                                                        .subtype("IDENTITY")
+                                                                        .build()
+                                                                ))
+                                                        .build()))
+                                                .build())
+                                        .put("current_temp", openLineage.newColumnLineageDatasetFacetFieldsAdditionalBuilder()
+                                                .inputFields(List.of(openLineage.newColumnLineageDatasetFacetFieldsAdditionalInputFieldsBuilder()
+                                                        .namespace(NAMESPACE)
+                                                        .name("currentTemp")
+                                                        .transformations(List.of(
+                                                                openLineage.newColumnLineageDatasetFacetFieldsAdditionalInputFieldsTransformationsBuilder()
+                                                                        .type("DIRECT")
+                                                                        .subtype("IDENTITY")
+                                                                        .build()
+                                                        ))
+                                                        .build()))
+                                                .build())
+                                        .put("predict_low", openLineage.newColumnLineageDatasetFacetFieldsAdditionalBuilder()
+                                                .inputFields(List.of(openLineage.newColumnLineageDatasetFacetFieldsAdditionalInputFieldsBuilder()
+                                                        .namespace(NAMESPACE)
+                                                        .name("predictLow")
+                                                        .transformations(List.of(
+                                                                openLineage.newColumnLineageDatasetFacetFieldsAdditionalInputFieldsTransformationsBuilder()
+                                                                        .type("DIRECT")
+                                                                        .subtype("IDENTITY")
+                                                                        .build()
+                                                                ))
+                                                        .build()))
+                                                .build())
+                                        .put("predict_high", openLineage.newColumnLineageDatasetFacetFieldsAdditionalBuilder()
+                                                .inputFields(List.of(openLineage.newColumnLineageDatasetFacetFieldsAdditionalInputFieldsBuilder()
+                                                        .namespace(NAMESPACE)
+                                                        .name("predictHigh")
+                                                        .transformations(List.of(
+                                                                openLineage.newColumnLineageDatasetFacetFieldsAdditionalInputFieldsTransformationsBuilder()
+                                                                        .type("DIRECT")
+                                                                        .subtype("IDENTITY")
+                                                                        .build()
+                                                                ))
+                                                        .build()))
+                                                .build())
                                         .put("id", openLineage.newColumnLineageDatasetFacetFieldsAdditionalBuilder()
                                                 .transformationType("INDIRECT")
                                                 .transformationDescription("Generated on insert.")
